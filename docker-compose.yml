@@ -1,0 +1,49 @@
+# Version del formato de Compose para maximizar compatibilidad entre plataformas.
+version: "3.9"
+
+services:
+  # Servicio principal de la aplicacion Python.
+  app:
+    # Construye la imagen localmente usando el Dockerfile del proyecto.
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    # Nombra el contenedor para facilitar su identificacion en desarrollo y despliegue.
+    container_name: automatizador-notas-voz
+
+    # Reinicia el contenedor automaticamente si el proceso cae de forma inesperada.
+    restart: unless-stopped
+
+    # Carga variables sensibles y de entorno desde un archivo local fuera del control de version.
+    env_file:
+      - .env
+
+    # Define variables tecnicas basicas que deben existir incluso si el archivo .env no fue creado aun.
+    environment:
+      # Fuerza salida sin buffering para ver logs en tiempo real.
+      PYTHONUNBUFFERED: "1"
+      # Evita la creacion de archivos .pyc dentro del contenedor.
+      PYTHONDONTWRITEBYTECODE: "1"
+
+    # Monta los directorios persistentes del proyecto para que los datos sobrevivan a recreaciones del contenedor.
+    volumes:
+      # Persistencia de la base de datos SQLite en el host.
+      - ./database:/app/database
+      # Persistencia de logs de ejecucion en el host.
+      - ./logs:/app/logs
+      # Persistencia de audios temporales o historicos en el host.
+      - ./audios:/app/audios
+
+    # Crea los directorios necesarios y luego inicia el modulo principal cuando el codigo exista.
+    command: >-
+      sh -c "mkdir -p /app/database /app/logs /app/audios && exec python -m app.main"
+
+    # Mantiene la aplicacion dentro del directorio de trabajo esperado por el Dockerfile.
+    working_dir: /app
+
+    # Permite apagar el contenedor con tiempo suficiente para cerrar recursos correctamente.
+    stop_grace_period: 30s
+
+# No se declaran volumentes anonimos para que la informacion quede en el host mediante bind mounts.
+volumes: {}

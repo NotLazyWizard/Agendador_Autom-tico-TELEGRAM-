@@ -1,27 +1,29 @@
-#CREDENCIALES
+# Ignora el archivo de entorno real porque suele contener secretos.
 .env
 
-#DATOS LOCALES
-data/
-logs/
-
-#PYTHON
+# Ignora artefactos de Python generados automaticamente.
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
-.Python
-*.egg-info/
-dist/
-build/
+
+# Ignora directorios de entornos virtuales locales.
 .venv/
 venv/
+env/
 
-#IDEs
-.vscode/
-.idea/
-*.swp
+# Ignora caches de herramientas de calidad y test.
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
 
-#OS
+# Ignora datos locales persistentes que se almacenan fuera del control de version.
+database/
+logs/
+audios/
+
+# Ignora archivos temporales del sistema y del editor.
 .DS_Store
 Thumbs.db
+.vscode/
+.idea/

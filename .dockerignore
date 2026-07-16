@@ -1,0 +1,37 @@
+# Excluye el control de versiones del contexto de build para hacerlo mas pequeno y reproducible.
+.git
+.gitignore
+
+# Excluye configuraciones y secretos locales que no deben entrar en la imagen.
+.env
+.env.*
+
+# Excluye los directorios persistentes que se montan como volumen en tiempo de ejecucion.
+database/
+logs/
+audios/
+
+# Excluye caches y archivos compilados de Python.
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Excluye entornos virtuales locales para no inflar el contexto de build.
+.venv/
+venv/
+env/
+
+# Excluye metadatos de editores y sistemas operativos que no aportan al contenedor.
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Excluye documentacion y pruebas si no forman parte de la imagen de ejecucion.
+docs/
+tests/
+scripts/
