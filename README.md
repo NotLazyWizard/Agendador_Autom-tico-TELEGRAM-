@@ -34,6 +34,67 @@ La base del sistema sigue estos principios:
 - `SQLiteNoteRepository`: persiste, consulta, actualiza y elimina notas.
 - `logger.py`: centraliza la configuración y los helpers de logging.
 
+## Ejemplo de uso
+
+### 1. Guardar una nota de voz
+
+1. Abre el chat con el bot en Telegram.
+2. Envía una nota de voz con una idea, recordatorio o tarea.
+3. El bot descarga el audio, lo transcribe y lo guarda automáticamente.
+4. Recibirás la confirmación:
+
+```text
+Nota guardada correctamente.
+```
+
+Ejemplo real:
+
+```text
+Usuario: [envía nota de voz]
+Bot: Nota guardada correctamente.
+```
+
+### 2. Consultar notas con comandos
+
+Después de guardar varias notas, puedes consultar el historial con estos comandos:
+
+```text
+/hoy
+/ayer
+/semana
+/mes
+/ultimas
+/estadisticas
+```
+
+Ejemplo:
+
+```text
+Usuario: /ultimas
+Bot:
+Últimas notas (3):
+- [15/07/2026 09:10] Reunión con proveedor: Revisar presupuesto y confirmar horario...
+- [15/07/2026 08:40] Comprar repuestos: Necesitamos tornillos, cable y adhesivo...
+- [14/07/2026 21:05] Llamar al cliente: Confirmar entrega del prototipo...
+```
+
+### 3. Buscar por texto
+
+Puedes buscar notas por contenido usando:
+
+```text
+/buscar presupuesto
+```
+
+Ejemplo:
+
+```text
+Usuario: /buscar presupuesto
+Bot:
+Resultados para: presupuesto (1):
+- [15/07/2026 09:10] Reunión con proveedor: Revisar presupuesto y confirmar horario...
+```
+
 ## Docker
 
 El proyecto se ejecuta dentro de un contenedor Python basado en `python:3.12-slim-bookworm`.
