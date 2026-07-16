@@ -406,7 +406,8 @@ def ensure_directories(config: AppConfig) -> None:
     config.docker.logs_dir.mkdir(parents=True, exist_ok=True)
     config.docker.audios_dir.mkdir(parents=True, exist_ok=True)
     config.sqlite.database_path.parent.mkdir(parents=True, exist_ok=True)
-    config.sqlite.backup_dir.mkdir(parents=True, exist_ok=True)
+    if config.sqlite.backup_enabled:
+        config.sqlite.backup_dir.mkdir(parents=True, exist_ok=True)
 
 
 def build_runtime_config() -> AppConfig:
